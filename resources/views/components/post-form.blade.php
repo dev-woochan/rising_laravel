@@ -1,10 +1,8 @@
 <main class="container mx-auto bg-white rounded-lg p-6 mt-8 overflow-hidden shadow">
-    <form action="{{route('post.store')}}" class="write_form"  enctype="multipart/form-data" id="write_form" method="POST">
-    @method('POST')
+    <form action="{{route('post.store')}}" class="write_form"  enctype="multipart/form-data" id="write_form" method="POST" >
     @csrf
 
         <div class="form_wrap">
-
             <div class="flex flex-wrap mb-1">
                 <div class="w-full md:w-1/2 pr-2 mb-1 md:mb-0">
                     <label for="titleInput" class="block">제목</label>
@@ -49,6 +47,7 @@
         </div>
         <script src="{{asset("/js/summernote.js")}}">
 </script>
+<script src="{{asset('/js/write_validate_check.js')}}"></script>
 
     </form>
 </main>
