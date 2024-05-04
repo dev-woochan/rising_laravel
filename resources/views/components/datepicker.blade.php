@@ -1,0 +1,2 @@
+<input type="text" name="target_date" id="datepicker" class="datepicker border border-gray-300 rounded-md px-4 py-2" placeholder="0000-00-00" autocomplete="off">
+<script src="{{asset("js/datepicker.js")}}"></script>
