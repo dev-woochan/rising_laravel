@@ -16,6 +16,15 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    /**
+     * 사용자의 게시물을 가져옵니다.
+     */
+    public function boards()
+    {
+        return $this->hasMany(Board::class);
+    }
+
     protected $fillable = [
         'name',
         'email',

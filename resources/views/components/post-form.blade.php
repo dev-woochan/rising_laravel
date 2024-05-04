@@ -30,7 +30,6 @@
                     <x-datepicker/>
                 </div>
             </div>
-
             <div class="write_button_left mb-4">
                 <button type="button" id="button_increase" class="button_select bg-blue-500 text-white px-4 py-2 rounded-md">오른다</button>
                 <button type="button" id="button_decrease" class="button_select bg-blue-500 text-white px-4 py-2 rounded-md">내린다</button>

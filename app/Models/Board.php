@@ -9,6 +9,14 @@ class Board extends Model
 {
     use HasFactory;
 
+    /**
+     * 이 게시물을 작성한 사용자를 가져옵니다.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     protected $table = 'boards'; //자동으로 생성되긴함 
     protected $primaryKey = 'id';
     protected $fillable = ['title', 'created_at', 'updated_at', 'target_date', 'content', 'stock_name', 'stock_price', 'likes', 'views', 'rise_select'];

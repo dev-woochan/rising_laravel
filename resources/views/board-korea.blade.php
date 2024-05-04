@@ -22,16 +22,19 @@
     <section class="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
         <div class="p-6 bg-red-400 border-b border-gray-200 "><a class="font-bold text-lg" :href="route('home')">국내주식 게시판</a></div>
         <x-board-list>
-        @php
         
-        @endphp
         {{-- 반복문 --}}
         @foreach($boards as $key => $board)
             <tr>
-                <td class="border px-4 py-2 text-center">{{$board->id}}</td>
+            @php
+    $id = $board->id;
+    $user = $board->user;
+    $user_name = $user->name;
+         @endphp
+                <td class="border px-4 py-2 text-center">{{$id}}</td>
                 <td class="border px-4 py-2 text-center" ><a href="#" class="stockLink" target="_blank">{{$board->stock_name}}</a></td>
                 <td class="border px-4 py-2 text-center"><a href="#">{{$board->title}}</a></td>
-                <td class="border px-4 py-2 text-center">{{$board->user_id}}</td>
+                <td class="border px-4 py-2 text-center">{{$user_name}}</td>
                 <td class="border px-4 py-2 text-center">{{$board->created_at}}</td>
                 <td class="border px-4 py-2 text-center">{{$board->rise_select}}</td>
                 <td class="border px-4 py-2 text-center">{{$board->views}}</td>
