@@ -1,5 +1,5 @@
 <main class="container mx-auto bg-white rounded-lg p-6 mt-8 overflow-hidden shadow">
-    <form action="{{route('post.store')}}" class="write_form"  enctype="multipart/form-data" id="write_form" method="POST" >
+    <form action="{{route('boards.store')}}" class="write_form"  enctype="multipart/form-data" id="write_form" method="POST" >
     @csrf
 
         <div class="form_wrap">

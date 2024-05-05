@@ -33,13 +33,20 @@ Route::get('/board-korea', [BoardController::class, 'index'])->name('board-korea
 // 즉 처음 korea-board 화면접속시 실행 
 //name(’boards.index’)는 라우트의 별칭으로 나중에 route(’boards.index’) 이런 식으로 주소 출력을 할 수 있습니다.
 
-Route::get(
-    '/writepost',
-    [BoardController::class, 'create']
-)->middleware(['auth', 'verified'])->name('writepost');
+// Route::get(
+//     '/writepost',
+//     [BoardController::class, 'create']
+// )->middleware(['auth', 'verified'])->name('writepost');
 
-Route::post('/post/store', [BoardController::class, 'store'])->name('post.store');
+// Route::post('/post/store', [BoardController::class, 'store'])
+//     ->middleware(['auth', 'verified'])
+//     ->name('post.store');
 
+// Route::get('/showpost', [BoardController::class, 'show'])
+//     ->middleware(['auth', 'verified'])
+//     ->name('showpost'); RESTful resources로 리펙토링함 
+
+Route::resource('boards', BoardController::class);
 
 
 require __DIR__ . '/auth.php';

@@ -13,7 +13,7 @@
                 </form>
             </div>
             <div class="right_option">
-                <a href="{{route('writepost')}}">
+                <a href="{{route('boards.create')}}">
                     <button class="bg-blue-500 text-white px-4 py-1 rounded-md">글쓰기</button>
                 </a>
             </div>
