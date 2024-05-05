@@ -33,7 +33,7 @@
          @endphp
                 <td class="border px-4 py-2 text-center">{{$id}}</td>
                 <td class="border px-4 py-2 text-center" ><a href="#" class="stockLink" target="_blank">{{$board->stock_name}}</a></td>
-                <td class="border px-4 py-2 text-center"><a href="#">{{$board->title}}</a></td>
+                <td class="border px-4 py-2 text-center"><a href="/boards/{{$id}}">{{$board->title}}</a></td>
                 <td class="border px-4 py-2 text-center">{{$user_name}}</td>
                 <td class="border px-4 py-2 text-center">{{$board->created_at}}</td>
                 <td class="border px-4 py-2 text-center">{{$board->rise_select}}</td>

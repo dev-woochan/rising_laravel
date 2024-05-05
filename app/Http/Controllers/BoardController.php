@@ -59,7 +59,11 @@ class BoardController extends Controller
      */
     public function show(Board $board)
     {
-        //
+        $id = $board->id;
+        $user_id = $board->user_id;
+        $user = $board->user;
+        $board = Board::find($id);
+        return view('Board_Show', compact('board', 'user'));
     }
 
     /**
