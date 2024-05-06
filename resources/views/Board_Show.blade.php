@@ -4,13 +4,20 @@
             {{ __('글 보기') }}
         </h2>
     </x-slot>
-    <div class="articleContentBox bg-white p-6 rounded-lg shadow-lg min-h-screen m-3">
+    <div class="articleContentBox bg-white p-6 rounded-lg shadow-lg min-h-screen m-5">
     <div class="article_header">
         <div class="header_top flex justify-between items-center">
             <a href="#" class="link_board text-blue-500">국내주식 게시판</a>
             <div class="flex space-x-2">
-                <button class="btn-update bg-green-500 text-white px-3 py-2 rounded-lg">수정</button>
-                <button class="btn-delete bg-red-500 text-white px-3 py-2 rounded-lg">삭제</button>
+                <form action="/boards/{{$board->id}}/edit" method="GET">
+            
+                <button type="submit" class="btn-update bg-green-500 text-white px-3 py-2 rounded-lg">수정</button>
+                </form>
+                <form action="/boards/{{$board->id}}" method="POST">
+                @method('DELETE')
+                @csrf
+                <button type="submit" class="btn-delete bg-red-500 text-white px-3 py-2 rounded-lg">삭제</button>
+                </form>
             </div>
         </div>
     </div>
@@ -35,10 +42,18 @@
         <div class="border-2 mt-3 min-h-60">{!! $board->content !!}</div>
 
         <div class="like align-center mt-3 flex items-center justify-center" >
-            <button id="like_btn" src="{{asset('/like_btn.png')}}"><img id="btn_image" src="{{asset('/like_btn.png')}}"/> 
+            <button  id="like_btn" src="{{asset('/like_btn.png')}}"><img  class="h-10" id="btn_image" src="{{asset('/like_btn.png')}}"/> 
                 <span id ="like_cnt">0</span>
             </button>
        </div>
+        <div class="border-b-2 mt-2">댓글</div>
+
+
+
+
+
+
+
        <script>
 let like_btn = document.getElementById("like_btn");
 let btn_image = document.getElementById("btn_image");

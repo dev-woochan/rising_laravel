@@ -71,7 +71,11 @@ class BoardController extends Controller
      */
     public function edit(Board $board)
     {
-        //
+        $id = $board->id;
+        $user_id = $board->user_id;
+        $user = $board->user;
+        $board = Board::find($id);
+        return view('Board_Edit', compact('board', 'user'));
     }
 
     /**
@@ -79,7 +83,21 @@ class BoardController extends Controller
      */
     public function update(Request $request, Board $board)
     {
-        //
+
+        $requestData = $request->all();
+        $board_id = $requestData['board_id'];
+        $board = Board::find($board_id);
+        $board->title = $requestData['title'];
+        $board->stock_name = $requestData['stock_name'];
+        $board->stock_price = $requestData['stock_price'];
+        $board->rise_select = $requestData['rise_select'];
+        $board->target_date = $requestData['target_date'];
+        $board->content = $requestData['editordata'];
+        $board->save();
+        $user = $board->user;
+
+
+        return view('Board_Show', compact('board', 'user'))->with('success', '게시글이 성공적으로 수정 되었습니다.');
     }
 
     /**
@@ -87,6 +105,8 @@ class BoardController extends Controller
      */
     public function destroy(Board $board)
     {
-        //
+        Board::find(($board->id))->delete();
+
+        return redirect()->route('board-korea.index')->with('success', '삭제되었습니다.');
     }
 }
