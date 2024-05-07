@@ -17,6 +17,11 @@ class Board extends Model
         return $this->belongsTo(User::class);
     } //user와의 관계지정 Board는 User에 속하게된다.
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     protected $table = 'boards'; //테이블과연결될 이름 지정
     protected $primaryKey = 'id'; //pk 설정 
     protected $fillable = ['title', 'created_at', 'updated_at', 'target_date', 'content', 'stock_name', 'stock_price', 'likes', 'views', 'rise_select'];

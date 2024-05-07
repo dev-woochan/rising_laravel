@@ -21,8 +21,7 @@
             </div>
         </div>
     </div>
-    <div class="header_mid mt-2">
-        <input id="board_id" type="hidden" value="{{$board->id}}">
+    <div id = "board_info"class="header_mid mt-2" data-id="{{$board->id}}">
         <div class="article_title text-xl font-bold">{{$board->title}}</div>
         <div class="article_info flex flex-column mt-2 text-sm">
             <div class="article_writer">작성자: {{$user->name}}</div>
@@ -33,7 +32,7 @@
 
     <div class="article_stock flex justify-between mt-2">
         <div class="article_stock_name">종목명: {{$board->stock_name}}</div>
-        <div class="article_stock_rise bg-red-600 p-2 rounded-lg shadow-lg text-white">오른다</div>
+        <div id ="rise_select" class="article_stock_rise bg-red-600 p-2 rounded-lg shadow-lg text-white">오른다</div>
     </div>
     <div class="article_stock flex justify-between mt-2">
         <div class="article_stock_price">작성일가격: {{$board->stock_price}} 원</div>
@@ -47,56 +46,43 @@
             </button>
        </div>
         <div class="border-b-2 mt-2">댓글</div>
-
-
-
-
-
-
-
-       <script>
-let like_btn = document.getElementById("like_btn");
-let btn_image = document.getElementById("btn_image");
-btn_image.addEventListener("mouseover", function() {
-    btn_image.src = "/like_btn_hover.png";
-});
-
-btn_image.addEventListener("mouseout", function() {
-    btn_image.src = "/like_btn.png";
-});
-
-like_btn.addEventListener("click", likeClick
-);
-
-async function likeClick() {
-    //포스팅 id 가 필요함 
-    let postId = '';
-    let board_id = document.getElementById("board_id").value;
-    let data = { 'board_id': board_id };
-
-    try {
-        const response = await fetch("likebtn.php", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        });
-        const result = await response.json();
-        if (result.valid == 'increase') {
-            document.getElementById("like_cnt").innerText = parseInt(document.getElementById("like_cnt").innerText + 1);
-            console.log('증가');
-        } else if (result.valid == 'decrease') {
-            document.getElementById("like_cnt").innerText = parseInt(document.getElementById("like_cnt").innerText - 1);
-            console.log('감소');
-        } else {
-            alert("로그인을 해주세요");
-        }
-    } catch (error) {
-        console.log("좋아요버튼 에러: " + error);
-    }
-}
-       </script>
+    <x-comment_container>
+    <li class="comment_list bg-white overflow-hidden shadow rounded-lg border-2 p-3 mt-3">
+    <div class="comment_top flex items-center">
+        <div class="comment_name" style="font-weight: 700;">
+            <span id="comment_name">John Doe</span>
+        </div>
+        <div class="buttons ml-auto">
+            <button class="modify_comment bg-green-500 text-white rounded-lg" onclick="modify_comment(this)">수정</button>
+            <button class="delete_comment bg-red-500 text-white rounded-lg" onclick="comment_delete(this)">삭제</button>
+        </div>
+    </div>
+    <div class="comment_time text-xs">
+        2024-05-07
+    </div>
+    <div class="comment_bottom">
+        <div class="comment_content mt-4 text-base">
+            This is a sample comment content.
+        </div>
+    </div>
+    </li>
+   </x-comment_container>
+            <!-- 댓글입력창  -->
+   <div class=" mt-5"></div>
+   <div class="comment_insert flex flex-column p-2 border-2 mt-2">
+    <div class="comment_insert_name" id="login_name">
+            <span class="font-bold">{{Auth::user()->name}}</span>
+            <!-- <a  class="font-bold">로그인</a>을 해주세요 -->
+    </div>
+    <input type="text" id="comment_insert_content" placeholder="댓글을 입력해주세요" name="content" class="border-0 flex-grow border rounded-md p-2 ">
+        <!-- 로그인중일 때 -->
+        <div class="justify-end flex mt-1">
+            <input type="button" value="등록" id="comment_btn" onclick="comment_insert()" class="px-2 text-center py-2 bg-blue-500 text-white w-14 rounded-md cursor-pointer">
+        </div>
+    </div>
+    </div>
+        <script src="/js/comment.js"></script>
+       <script src="/js/likebtn.js"></script>
 </div>
 
 

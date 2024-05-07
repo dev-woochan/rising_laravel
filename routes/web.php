@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,7 @@ Route::get('/board-korea', [BoardController::class, 'index'])->name('board-korea
 
 Route::resource('boards', BoardController::class);
 
+Route::resource('comments', CommentController::class);
 
 require __DIR__ . '/auth.php';
 

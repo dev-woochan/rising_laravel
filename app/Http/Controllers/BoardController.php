@@ -18,8 +18,6 @@ class BoardController extends Controller
     {
         //boards 테이블에서 데이터를 최신순으로 10개씩 불러오기
         $boards = Board::latest()->paginate((10));
-        // $boards = Board::all();
-        // board-korea에서 board=>$boards 로 사용함 
         return view("board-korea", compact('boards'));
     }
 
