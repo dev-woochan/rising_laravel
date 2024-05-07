@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Board;
+use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Auth;
 use Illuminate\Foundation\Http\FormRequest;
@@ -18,6 +20,7 @@ class BoardController extends Controller
     {
         //boards 테이블에서 데이터를 최신순으로 10개씩 불러오기
         $boards = Board::latest()->paginate((10));
+
         return view("board-korea", compact('boards'));
     }
 
@@ -61,7 +64,8 @@ class BoardController extends Controller
         $user_id = $board->user_id;
         $user = $board->user;
         $board = Board::find($id);
-        return view('Board_Show', compact('board', 'user'));
+        $comments = Comment::latest()->where('board_id', '=', $id)->get();
+        return view('Board_Show', compact('board', 'user', 'comments'));
     }
 
     /**
@@ -103,6 +107,7 @@ class BoardController extends Controller
      */
     public function destroy(Board $board)
     {
+        $board->comments()->delete();
         Board::find(($board->id))->delete();
 
         return redirect()->route('board-korea.index')->with('success', '삭제되었습니다.');

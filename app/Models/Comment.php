@@ -21,5 +21,5 @@ class Comment extends Model
 
     protected $primaryKey = 'id'; //pk 설정 
 
-    private $fillable = ['content', 'board_id', 'parent_comment_id', 'depth', 'order_number'];
+    protected $fillable = ['content', 'board_id'];
 }

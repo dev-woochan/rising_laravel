@@ -15,6 +15,8 @@ class CommentController extends Controller
         //
     }
 
+    
+
     /**
      * Show the form for creating a new resource.
      */
@@ -28,20 +30,20 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $requestData = $request->json();
+        $requestData = $request->json()->all();
         $user_id = \Auth::id();
         $user_name = \Auth::user()->name;
         $comment = new Comment;
         $comment->comment_user_id = $user_id;
         $comment->content = $requestData['content'];
         $comment->board_id = $requestData['board_id'];
-
         $comment->save();
 
         $data = [
             'user_name' => $user_name,
             'time' => $comment->created_at,
-            'content' => $comment->content
+            'content' => $comment->content,
+            'valid' => 'true'
         ];
 
         $data = json_encode($data);

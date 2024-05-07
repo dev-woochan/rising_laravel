@@ -47,25 +47,12 @@
        </div>
         <div class="border-b-2 mt-2">댓글</div>
     <x-comment_container>
-    <li class="comment_list bg-white overflow-hidden shadow rounded-lg border-2 p-3 mt-3">
-    <div class="comment_top flex items-center">
-        <div class="comment_name" style="font-weight: 700;">
-            <span id="comment_name">John Doe</span>
-        </div>
-        <div class="buttons ml-auto">
-            <button class="modify_comment bg-green-500 text-white rounded-lg" onclick="modify_comment(this)">수정</button>
-            <button class="delete_comment bg-red-500 text-white rounded-lg" onclick="comment_delete(this)">삭제</button>
-        </div>
-    </div>
-    <div class="comment_time text-xs">
-        2024-05-07
-    </div>
-    <div class="comment_bottom">
-        <div class="comment_content mt-4 text-base">
-            This is a sample comment content.
-        </div>
-    </div>
-    </li>
+    <!-- 댓글시작 -->
+    @foreach ($comments as $comment)
+      
+        <x-comment :comment="$comment"/>
+    @endforeach
+    <!-- 댓글 끝 -->
    </x-comment_container>
             <!-- 댓글입력창  -->
    <div class=" mt-5"></div>

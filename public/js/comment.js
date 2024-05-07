@@ -35,10 +35,24 @@ function comment_insert() {
                     //성공한경우 댓글 추가 
                     // //댓글 html 변수에담기
                     // // 새로운 댓글 추가하기 
+                    const timestamp = result.time;
+
+                    // 주어진 UTC 타임스탬프를 Date 객체로 변환
+                    const date = new Date(timestamp);
+
+                    // 특정 포맷으로 직접 포맷팅
+                    const formattedDateTime = new Intl.DateTimeFormat('ko-KR', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    timeZone: 'UTC',
+                    hour12: false
+                    }).format(date);
                     var newCommentElement = document.createElement('li');
                     newCommentElement.className = "comment_list bg-white overflow-hidden shadow rounded-lg border-2 p-3 mt-3";
-                    newCommentElement.dataset.id = result.id;
-                    newCommentElement.dataset.orderNumber = result.orderNumber;
                     newCommentElement.innerHTML = `                      
                     <div class="comment_top flex items-center">
                         <div class="comment_name" style="font-weight: 700;">
@@ -50,7 +64,7 @@ function comment_insert() {
                         </div>
                     </div>
                     <div class="comment_time text-xs">
-                    ${result.time}
+                    ${formattedDateTime}
                     </div>
                     <div class="comment_bottom">
                         <div class="comment_content mt-4 text-base">
