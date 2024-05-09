@@ -53,6 +53,7 @@ function comment_insert() {
                     }).format(date);
                     var newCommentElement = document.createElement('li');
                     newCommentElement.className = "comment_list bg-white overflow-hidden shadow rounded-lg border-2 p-3 mt-3";
+                    newCommentElement.dataset.id = result.id;
                     newCommentElement.innerHTML = `                      
                     <div class="comment_top flex items-center">
                         <div class="comment_name" style="font-weight: 700;">
@@ -217,10 +218,11 @@ function modify_comment(button) {
 
     text_area.focus(); //수정창에 포커싱 
 
-    let button_area = comment_list.querySelector(".replyBtnWrap"); //버튼 바꿀 곳
+    let button_area = comment_list.querySelector(".buttons"); //버튼 바꿀 곳
 
-    let submit_area = document.createElement("div"); // 변경할 html
-    submit_area.innerHTML = `<button class='modify_submit'>등록</button><button class='modify_cancel'>취소</button>`;
+    let submit_area = document.createElement("div"); // 추가할 html
+    submit_area.className ="buttons ml-auto"
+    submit_area.innerHTML = `<button class='modify_submit bg-green-500 text-white rounded-lg mr-1' >등록</button><button class='modify_cancel bg-red-500 text-white rounded-lg'>취소</button>`;
 
     button_area = button_area.parentNode.replaceChild(submit_area, button_area); // 내부요소 변경하기
 
@@ -233,16 +235,17 @@ function modify_comment(button) {
     });
 
     submitBtn.addEventListener("click", function () { //등록버튼 수정이 되어야함
-        var modify_content = text_area.value; // 입력값 받아옴
-        var data = {
+        let modify_content = text_area.value; // 입력값 받아옴
+        let data = {
             "comment_id": comment_id,
-            "comment": modify_content
+            "content": modify_content
         }; //json 데이터 만들어줌
 
-        fetch("comment_update.php", {
-            method: "POST",
+        fetch("/comments/update", {
+            method: "PATCH",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type":"application/json",
+                'X-CSRF-TOKEN': csrfToken // CSRF 토큰을 헤더에 포함
             },
             body: JSON.stringify(data)
         })
@@ -275,10 +278,11 @@ function comment_delete(button) {
         "comment_id": comment_id
     }
     if (confirm('정말 삭제하시겠습니까?')) {
-        fetch("comment_delete.php", {
-            method: "POST",
+        fetch("/comments/delete", {
+            method: "DELETE",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                'X-CSRF-TOKEN': csrfToken // CSRF 토큰을 헤더에 포함
             },
             body: JSON.stringify(data)
         })
@@ -293,7 +297,7 @@ function comment_delete(button) {
                         let comment_bottom = comment_list.querySelector(".comment_bottom");
                         //기존 내부 요소들 삭제 
                         let deleted_element = document.createElement('div');
-                        deleted_element.className = "comment_list"
+                        deleted_element.className = "comment_list";
                         deleted_element.innerText = "삭제되었습니다";
                         deleted_element.dataset.orderNumber = data.orderNumber;
                         comment_bottom = comment_list.replaceChild(deleted_element, comment_bottom);
@@ -307,7 +311,6 @@ function comment_delete(button) {
                         console.log("모두삭제");
                         let parent_list = comment_list.parentNode.closest(".comment_list");
                         parent_list.parentNode.removeChild(parent_list);
-
                     }
                 } else {
                     alert("댓글삭제 실패 ")

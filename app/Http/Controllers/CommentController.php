@@ -15,7 +15,7 @@ class CommentController extends Controller
         //
     }
 
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -43,6 +43,7 @@ class CommentController extends Controller
             'user_name' => $user_name,
             'time' => $comment->created_at,
             'content' => $comment->content,
+            'id' => $comment->id,
             'valid' => 'true'
         ];
 
@@ -70,16 +71,33 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request)
     {
-        //
+        $requestData = $request->json()->all();
+        $comment = Comment::find($requestData['comment_id']);
+        $comment->content = $requestData['content'];
+
+        $comment->save();
+
+        return response()->json([
+            'updatedComment' => $comment->content,
+            'success' => true
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Comment $comment)
+    public function destroy(Request $request)
     {
-        //
+        $requestData = $request->json()->all();
+        $comment = Comment::find($requestData['comment_id']);
+        $comment->delete();
+
+        return response()->json([
+            'type' => 'delete',
+            'success' => true,
+        ]);
+
     }
 }

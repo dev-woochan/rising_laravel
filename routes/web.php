@@ -52,6 +52,10 @@ Route::resource('boards', BoardController::class);
 
 Route::resource('comments', CommentController::class);
 
+Route::post('/comments/update', [CommentController::class, 'update'])->name('comment.update');
+Route::delete('/comments/delete', [CommentController::class, 'delete'])->name('comment.delete');
+
+
 require __DIR__ . '/auth.php';
 
 
