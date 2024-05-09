@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Board;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index($name = null): string
+    public function index()
     {
-        return '안녕하시와요 from HomeController' . $name;
+        $boards = Board::latest()->limit(5)->get();
+        return view("home", compact('boards'));
     }
 }

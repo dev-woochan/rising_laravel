@@ -65,6 +65,10 @@ class BoardController extends Controller
         $user = $board->user;
         $board = Board::find($id);
         $comments = Comment::latest()->where('board_id', '=', $id)->get();
+        if (empty($comments)) {
+            $comments = [];
+        }
+
         return view('Board_Show', compact('board', 'user', 'comments'));
     }
 
@@ -95,11 +99,15 @@ class BoardController extends Controller
         $board->rise_select = $requestData['rise_select'];
         $board->target_date = $requestData['target_date'];
         $board->content = $requestData['editordata'];
+        $id = $board->id;
         $board->save();
         $user = $board->user;
+        $comments = Comment::latest()->where('board_id', '=', $id)->get();
+        if (empty($comments)) {
+            $comments = [];
+        }
 
-
-        return view('Board_Show', compact('board', 'user'))->with('success', '게시글이 성공적으로 수정 되었습니다.');
+        return view('Board_Show', compact('board', 'user', 'comments'))->with('success', '게시글이 성공적으로 수정 되었습니다.');
     }
 
     /**

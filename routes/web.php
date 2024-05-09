@@ -14,9 +14,7 @@ Route::get('/board-korea', function () {
     return view('board-korea');
 })->middleware(['auth', 'verified'])->name('board-korea');
 
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 // ->middleware(['auth', 'verified'])
 
 Route::middleware('auth')->group(function () {

@@ -5,8 +5,10 @@
 
         </div>
         <div class="buttons ml-auto">
-            <button class="modify_comment bg-green-500 text-white rounded-lg" onclick="modify_comment(this)">수정</button>
-            <button class="delete_comment bg-red-500 text-white rounded-lg" onclick="comment_delete(this)">삭제</button>
+            @if (Auth::id() == $comment->comment_user_id)
+                <button class="modify_comment bg-green-500 text-white rounded-lg" onclick="modify_comment(this)">수정</button>
+                <button class="delete_comment bg-red-500 text-white rounded-lg" onclick="comment_delete(this)">삭제</button>
+            @endif
         </div>
     </div>
     <div class="comment_time text-xs">
